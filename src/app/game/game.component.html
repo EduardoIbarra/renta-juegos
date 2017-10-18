@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Juegos</h2>
+        </div>
+        <div class="col-md-3">
+            <label>Nombre</label>
+            <input type="text" class="form-control" autofocus [(ngModel)]="game.name" />
+        </div>
+        <div class="col-md-3">
+            <label>Plataforma</label>
+            <select class="form-control" [(ngModel)]="game.platform">
+                <option value="XBox_360">XBox 360</option>
+                <option value="PS3">PlayStation 3</option>
+                <option value="PS4">PlayStation 4</option>
+                <option value="XBox One">XBox One</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label>Precio de Compra</label>
+            <input type="number" class="form-control" autofocus [(ngModel)]="game.buy_price" />
+        </div>
+        <div class="col-md-2">
+            <label>Precio de Renta</label>
+            <input type="number" class="form-control" autofocus [(ngModel)]="game.rent_price" />
+        </div>
+        <div class="col-md-2">
+            <label>Precio de Venta</label>
+            <input type="number" class="form-control" autofocus [(ngModel)]="game.sale_price" />
+        </div>
+        <div class="col-md-offset-10 col-md-2">
+            <br />
+            <a class="btn btn-primary btn-block" (click)="store()">Guardar</a>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Lista de Juegos</h3>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <td>Nombre</td>
+                    <td>Plataforma</td>
+                    <td>Precio de Compra</td>
+                    <td>Precio de Renta</td>
+                    <td>Precio de Venta</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <ng-container *ngFor="let game of games | async; trackBy: trackByFn">
+                    <tr *ngIf="!game.deleted">
+                        <td>{{game.name}}</td>
+                        <td>{{game.platform}}</td>
+                        <td><b>${{game.buy_price | number:'1.2-2'}}</b></td>
+                        <td><b>${{game.rent_price | number:'1.2-2'}}</b></td>
+                        <td><b>${{game.sale_price | number:'1.2-2'}}</b></td>
+                        <td class="center">
+                            <a (click)="edit(game)" class="btn btn-default btn-xs">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </td>
+                        <td class="center">
+                            <a (click)="removeGame(game)" class="btn btn-danger btn-xs">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </ng-container>
+            </table>
+        </div>
+    </div>
+</div>
